@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Image, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {ImageBackground, Button, Platform, StyleSheet, Text, Alert, TouchableOpacity, View} from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import * as WebBrowser from 'expo-web-browser';
 
@@ -7,48 +7,18 @@ import { MonoText } from '../components/StyledText';
 
 export default function HomeScreen() {
   return (
-    <View style={styles.container}>
-      <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-        <View style={styles.welcomeContainer}>
-          <Image
-            source={
-              __DEV__
-                ? require('../assets/images/robot-dev.png')
-                : require('../assets/images/robot-prod.png')
-            }
-            style={styles.welcomeImage}
-          />
-        </View>
-
-        <View style={styles.getStartedContainer}>
-          <DevelopmentModeNotice />
-
-          <Text style={styles.getStartedText}>Open up the code for this screen:</Text>
-
-          <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
-            <MonoText>Changed This</MonoText>
+        <ImageBackground style={styles.backgroundImage} source={require("../assets/images/HomePageLeaf.jpg")}>
+          <View style={styles.titleCircle}>
+            <Text style={styles.titleText}>Studdy Buddy</Text>
           </View>
+          <TouchableOpacity
+            style={styles.getStartedButton}
+            onPress={() => Alert.alert('I pressed the button')}
+            underlayColor='fff'>
 
-          <Text style={styles.getStartedText}>
-            Change any of the text, save the file, and your app will automatically reload.
-          </Text>
-        </View>
-
-        <View style={styles.helpContainer}>
-          <TouchableOpacity onPress={handleHelpPress} style={styles.helpLink}>
-            <Text style={styles.helpLinkText}>Help, it didn’t automatically reload!</Text>
+            <Text style={styles.getStartedButtonText}>Get Started</Text>
           </TouchableOpacity>
-        </View>
-      </ScrollView>
-
-      <View style={styles.tabBarInfoContainer}>
-        <Text style={styles.tabBarInfoText}>This is a tab bar. You can edit it in:</Text>
-
-        <View style={[styles.codeHighlightContainer, styles.navigationFilename]}>
-          <MonoText style={styles.codeHighlightText}>navigation/BottomTabNavigator.js</MonoText>
-        </View>
-      </View>
-    </View>
+        </ImageBackground>
   );
 }
 
@@ -91,8 +61,49 @@ function handleHelpPress() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
+    justifyContent: 'center',
+  },
+  backgroundImage: {
+    justifyContent: 'center',
+    height: 1000,
+    width: null,
+    alignContent: 'center',
+  },
+  titleCircle: {
+    flex: .15,
+    alignContent: 'center',
+    justifyContent: 'center',
+    marginTop: -640,
+    backgroundColor: '#47C494',
+    borderBottomWidth: 2,
+    borderColor: '#fff',
+  },
+  titleText: {
+    color: '#E0F5F6',
+    textAlign: 'center',
+    paddingTop: 75,
+    fontSize: 45,
+    fontFamily: 'rock-salt',
+  },
+  getStartedButton: {
+    marginRight:80,
+    marginLeft:80,
+    marginTop: 240,
+    justifyContent: 'center',
+    alignContent: 'center',
+    paddingTop:20,
+    paddingBottom:20,
+    backgroundColor:'#47C494',
+    borderRadius:10,
+    borderWidth: 1,
+    borderColor: '#fff',
+    shadowOpacity: 0.8,
+    shadowOffset: {width: 1, height: 13}
+  },
+  getStartedButtonText: {
+    color:'#E0F5F6',
+    textAlign:'center',
+    fontSize: 20,
   },
   developmentModeText: {
     marginBottom: 20,
