@@ -81,6 +81,7 @@ const styles = StyleSheet.create({
   titleText: {
     color: '#E0F5F6',
     textAlign: 'center',
+    paddingBottom: 40,
     paddingTop: 75,
     fontSize: 45,
     fontFamily: 'rock-salt',
