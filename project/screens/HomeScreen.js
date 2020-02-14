@@ -22,10 +22,6 @@ export default function HomeScreen() {
   );
 }
 
-HomeScreen.navigationOptions = {
-  header: null,
-};
-
 
 const styles = StyleSheet.create({
   container: {
@@ -48,10 +44,12 @@ const styles = StyleSheet.create({
   },
   titleText: {
     color: '#E0F5F6',
+    position: 'absolute',
+    top: '40%',
+    width: '100%',
     textAlign: 'center',
-    paddingBottom: 40,
-    paddingTop: 75,
-    fontSize: 45,
+    margin: 0,
+    fontSize: 50,
     fontFamily: 'rock-salt',
   },
   getStartedButton: {
