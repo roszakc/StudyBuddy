@@ -1,11 +1,16 @@
+import 'react-native-gesture-handler';
 import * as React from 'react';
+import {NavigationContainer} from '@react-navigation/native';
 import {ImageBackground, Button, Platform, StyleSheet, Text, Alert, TouchableOpacity, View} from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import {createStackNavigator} from '@react-navigation/stack';
 import * as WebBrowser from 'expo-web-browser';
 
 import { MonoText } from '../components/StyledText';
 
-export default function HomeScreen() {
+
+
+export default function HomeScreen({navigation}) {
   return (
         <ImageBackground style={styles.backgroundImage} source={require("../assets/images/HomePageLeaf.jpg")}>
           <View style={styles.titleCircle}>
@@ -13,7 +18,8 @@ export default function HomeScreen() {
           </View>
           <TouchableOpacity
               style={styles.getStartedButton}
-            onPress={() => Alert.alert('I pressed the button')}
+  /*onPress={() => Alert.alert('I pressed the button')}*/
+            onPress={() => navigation.navigate('OverviewScreen', "test")}
             underlayColor='fff'>
 
             <Text style={styles.getStartedButtonText}>Get Started</Text>

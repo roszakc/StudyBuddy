@@ -1,3 +1,4 @@
+import 'react-native-gesture-handler';
 import * as React from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { SplashScreen } from 'expo';
@@ -17,6 +18,31 @@ export default function App(props) {
   const [initialNavigationState, setInitialNavigationState] = React.useState();
   const containerRef = React.useRef();
   const { getInitialState } = useLinking(containerRef);
+
+  const Stack = createStackNavigator();
+  function MyStack() {
+    return (
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="OverviewScreen"
+            component={OverviewScreen}
+            options={{
+              title: '',
+            }}
+          />
+          <Stack.Screen
+            name="NewEvent"
+            component={NewEvent}
+            options={{
+              title: '',
+            }}
+          />
+          <Stack.Screen name="Profile" component={Profile} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    );
+  }
 
   // Load any resources or data that we need prior to rendering the app
   React.useEffect(() => {
