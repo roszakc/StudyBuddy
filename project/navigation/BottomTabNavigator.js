@@ -2,9 +2,11 @@ import 'react-native-gesture-handler';
 import * as React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
 import OverviewScreen from '../screens/OverviewScreen'
 import CalendarDisplay from "../screens/CalendarDisplay";
+import TimeToStudy from "../screens/TimeToStudy";
+import CreateNewEvent from "../screens/CreateNewEvent";
+import TimerScreen from "../screens/TimerScreen";
 
 const BottomTab = createBottomTabNavigator();
 const INITIAL_ROUTE_NAME = 'Home';
@@ -18,15 +20,15 @@ export default function BottomTabNavigator({ navigation, route }) {
   return (
     <BottomTab.Navigator initialRouteName={INITIAL_ROUTE_NAME}>
       <BottomTab.Screen
-        name="Home"
+        name="HomeScreen"
         component={HomeScreen}
         options={{
           title: '',
         }}
       />
       <BottomTab.Screen
-        name="Links"
-        component={LinksScreen}
+        name="TimerScreen"
+        component={TimerScreen}
         options={{
           title: '',
         }}
@@ -44,6 +46,20 @@ export default function BottomTabNavigator({ navigation, route }) {
         options={{
             title: '',
         }}
+      />
+      <BottomTab.Screen
+          name="TimeToStudy"
+          component={TimeToStudy}
+          options={{
+              title: '',
+          }}
+      />
+      <BottomTab.Screen
+          name="CreateNewEvent"
+          component={CreateNewEvent}
+          options={{
+              title: '',
+          }}
       />
     </BottomTab.Navigator>
   );
