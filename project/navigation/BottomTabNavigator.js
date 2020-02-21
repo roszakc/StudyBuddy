@@ -1,10 +1,10 @@
 import 'react-native-gesture-handler';
 import * as React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
 import OverviewScreen from '../screens/OverviewScreen'
+import CalendarDisplay from "../screens/CalendarDisplay";
 
 const BottomTab = createBottomTabNavigator();
 const INITIAL_ROUTE_NAME = 'Home';
@@ -36,6 +36,13 @@ export default function BottomTabNavigator({ navigation, route }) {
         component={OverviewScreen}
         options={{
           title: '',
+        }}
+      />
+      <BottomTab.Screen
+        name="CalendarDisplay"
+        component={CalendarDisplay}
+        options={{
+            title: '',
         }}
       />
     </BottomTab.Navigator>

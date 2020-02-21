@@ -1,31 +1,30 @@
 import 'react-native-gesture-handler';
-import * as React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
+import React, { Component } from 'react';
 import {ImageBackground, Button, Platform, StyleSheet, Text, Alert, TouchableOpacity, View} from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
-import {createStackNavigator} from '@react-navigation/stack';
-import * as WebBrowser from 'expo-web-browser';
+import {NavigationContext} from '@react-navigation/native'
 
-import { MonoText } from '../components/StyledText';
+export default class HomeScreen extends Component {
 
+  static contextType = NavigationContext;
 
-
-export default function HomeScreen({navigation}) {
-  return (
+  render(){
+    const navigation = this.context;
+    return (
         <ImageBackground style={styles.backgroundImage} source={require("../assets/images/HomePageLeaf.jpg")}>
           <View style={styles.titleCircle}>
             <Text style={styles.titleText}>Study Buddy</Text>
           </View>
           <TouchableOpacity
               style={styles.getStartedButton}
-  /*onPress={() => Alert.alert('I pressed the button')}*/
-            onPress={() => navigation.navigate('OverviewScreen', "test")}
-            underlayColor='fff'>
+              onPress={() => navigation.navigate('OverviewScreen', "test")}
+              underlayColor='fff'>
 
             <Text style={styles.getStartedButtonText}>Get Started</Text>
           </TouchableOpacity>
         </ImageBackground>
-  );
+    );
+  }
+
 }
 
 
@@ -59,6 +58,22 @@ const styles = StyleSheet.create({
     fontFamily: 'rock-salt',
   },
   getStartedButton: {
+    marginRight:80,
+    marginLeft:80,
+    marginTop: 240,
+    justifyContent: 'center',
+    alignContent: 'center',
+    paddingTop:20,
+    paddingBottom:20,
+    backgroundColor:'#47C494',
+    borderRadius:10,
+    borderWidth: 1,
+    borderColor: '#fff',
+    shadowOpacity: 0.8,
+    shadowOffset: {width: 1, height: 13}
+  },
+
+  secondButton: {
     marginRight:80,
     marginLeft:80,
     marginTop: 240,

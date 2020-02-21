@@ -10,6 +10,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import BottomTabNavigator from './navigation/BottomTabNavigator';
 import useLinking from './navigation/useLinking';
+import HomeScreen from "./screens/HomeScreen";
+import CalendarDisplay from "./screens/CalendarDisplay";
+import OverviewScreen from "./screens/OverviewScreen";
 
 const Stack = createStackNavigator();
 
@@ -30,6 +33,20 @@ export default function App(props) {
             options={{
               title: '',
             }}
+          />
+          <Stack.Screen
+              name="HomeScreen"
+              component={HomeScreen}
+              options={{
+                title: '',
+              }}
+          />
+          <Stack.Screen
+              name="CalendarDisplay"
+              component={CalendarDisplay}
+              options={{
+                title: '',
+              }}
           />
           <Stack.Screen
             name="NewEvent"
