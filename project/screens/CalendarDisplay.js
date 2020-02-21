@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import 'react-native-gesture-handler';
 import {NavigationContext} from '@react-navigation/native'
 import {ImageBackground, Platform, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import RNCalendarEvents from "react-native-calendar-events";
 
 export default class CalendarDisplay extends Component{
 
@@ -23,6 +24,17 @@ export default class CalendarDisplay extends Component{
                 </TouchableOpacity>
             </ImageBackground>
         );
+
+        function calendar(){
+            if(RNCalendarEvents.authorizationStatus()){
+
+            }
+            else{
+                RNCalendarEvents.authorizeEventStore();
+            }
+            RNCalendarEvents.findCalendars()
+            RNCalendarEvents.saveEvent(title, details);
+        }
     }
 
 }
