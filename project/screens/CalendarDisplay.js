@@ -16,7 +16,7 @@ export default class CalendarDisplay extends Component{
                 </View>
                 <TouchableOpacity
                     style={styles.getStartedButton}
-                    onPress={() => navigation.navigate('HomeScreen')}
+                    onPress={() => navigation.navigate('OverviewScreen')}
                     underlayColor='fff'>
 
                     <Text style={styles.getStartedButtonText}>Home</Text>

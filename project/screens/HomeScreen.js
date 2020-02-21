@@ -17,7 +17,7 @@ export default class HomeScreen extends Component {
 
           <TouchableOpacity
               style={styles.getStartedButton}
-              onPress={() => navigation.navigate('OverviewScreen', "test")}
+              onPress={() => navigation.navigate('OverviewScreen')}
               underlayColor='fff'>
 
             <Text style={styles.getStartedButtonText}>Get Started</Text>
