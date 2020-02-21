@@ -1,6 +1,6 @@
 
 import React, {Component} from 'react';
-import {ImageBackground, Button, Platform, StyleSheet, Text, Alert, TouchableOpacity, View} from 'react-native';
+import {Image, Button, Platform, StyleSheet, Text, Dimensions, Alert, TouchableOpacity, View} from 'react-native';
 import {NavigationContext} from '@react-navigation/native'
 import 'react-native-gesture-handler';
 
@@ -12,76 +12,93 @@ export default class OverviewScreen extends Component{
         const {goBack} = this.props.navigation;
         const navigation = this.context;
         return (
-            <ImageBackground style={styles.backgroundImage} source={require("../assets/images/HomePageLeaf.jpg")}>
-                <View style={styles.titleCircle}>
-                    <Text style={styles.titleText}>Overview</Text>
+            <View style={styles.Container} source={require("../assets/images/HomePageLeaf.jpg")}>
+                <View style={styles.titleBarContainer}>
+                  <View style={styles.titleBar}>
+                      <Text style={styles.titleText}>Study Buddy</Text>
+                  </View>
                 </View>
-                <TouchableOpacity
-                    style={styles.getStartedButton}
-                    onPress={() => navigation.navigate('TimeToStudy')}
-                    underlayColor='fff'>
+                <View style={styles.buttonContainer}>
+                  <TouchableOpacity
+                      style={styles.Button}
+                      onPress={() => navigation.navigate('TimeToStudy')}
+                      underlayColor='fff'>
+                      <Image style={styles.timerIcon} source={require("../assets/images/timerIcon.png")}/>
 
-                    <Text style={styles.getStartedButtonText}>Time to Study</Text>
-                </TouchableOpacity>
+                      <Text style={styles.timerButtonText}>Study Time</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                      style={styles.Button}
+                      onPress={() => navigation.navigate('CalendarDisplay')}
+                      underlayColor='fff'>
+                      <Image style={styles.calendarIcon} source={require("../assets/images/calendarIcon.png")}/>
 
-                <TouchableOpacity
-                    style={styles.getStartedButton}
-                    onPress={() => navigation.navigate('CalendarDisplay')}
-                    underlayColor='fff'>
+                      <Text style={styles.calendarButtonText}>Calendar</Text>
+                  </TouchableOpacity>
 
-                    <Text style={styles.getStartedButtonText}>Calendar</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                    style={styles.getStartedButton}
-                    onPress={() => navigation.navigate('CreateNewEvent')}
-                    underlayColor='fff'>
-
-                    <Text style={styles.getStartedButtonText}>Create Event</Text>
-                </TouchableOpacity>
-            </ImageBackground>
+                  <TouchableOpacity
+                      style={styles.Button}
+                      onPress={() => navigation.navigate('CreateNewEvent')}
+                      underlayColor='fff'>
+                      <Image style={styles.createEventIcon} source={require("../assets/images/plusIcon.png")}/>
+                      <Text style={styles.createEventButtonText}>Create Event</Text>
+                  </TouchableOpacity>
+                </View>
+                <View style={styles.totalStudyTimeContainer}>
+                  <View style={styles.totalStudyTime}>
+                    <Text style={styles.totalStudyTimeText}>(Time Studied)</Text>
+                  </View>
+                </View>
+              <View style={styles.studyQuoteContainer}>
+                <View style={styles.studyQuote}>
+                  <Text style={styles.studyQuoteText}>"The roots of education are bitter, but the fruit is sweet" -Aristotle</Text>
+                </View>
+              </View>
+            </View>
         );
     }
-
 }
 
 const styles = StyleSheet.create({
-  container: {
+  Container: {
+    flex: 1,
     justifyContent: 'center',
-  },
-  backgroundImage: {
-    justifyContent: 'center',
-    height: 1000,
-    width: null,
+    height: Math.round(Dimensions.get('window').height),
+    width: Math.round(Dimensions.get('window').width),
+    backgroundColor: '#E0F5F6',
     alignContent: 'center',
   },
-  titleCircle: {
-    flex: .15,
-    alignContent: 'center',
-    justifyContent: 'center',
-    marginTop: -640,
-    backgroundColor: '#47C494',
-    borderBottomWidth: 2,
-    borderColor: '#fff',
+  titleBarContainer: {
+    flex: .25,
+  },
+  titleBar: {
+    height: Math.round(Dimensions.get('window').height)/10,
+    backgroundColor: '#EFEFEF',
+    shadowOpacity: 0.8,
+    shadowOffset: {width: 1, height: 4}
   },
   titleText: {
-    color: '#E0F5F6',
+    color: '#000000',
     position: 'absolute',
-    top: '40%',
+    top: '15%',
     width: '100%',
     textAlign: 'center',
-    margin: 0,
-    fontSize: 50,
+    fontSize: 30,
     fontFamily: 'rock-salt',
   },
-  getStartedButton: {
-    marginRight:80,
-    marginLeft:80,
-    marginTop: 40,
+  buttonContainer: {
+    flex: .25,
+    flexDirection: 'row',
+    height: 95,
+    marginTop: -100,
+  },
+  Button: {
     justifyContent: 'center',
     alignContent: 'center',
-    paddingTop:20,
-    paddingBottom:20,
+    marginLeft: 32.5,
+    marginTop: 30,
+    height: 95,
+    width: 95,
     backgroundColor:'#47C494',
     borderRadius:10,
     borderWidth: 1,
@@ -89,91 +106,80 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.8,
     shadowOffset: {width: 1, height: 13}
   },
-  getStartedButtonText: {
-    color:'#E0F5F6',
-    textAlign:'center',
-    fontSize: 20,
-  },
-  developmentModeText: {
-    marginBottom: 20,
-    color: 'rgba(0,0,0,0.4)',
-    fontSize: 14,
-    lineHeight: 19,
-    textAlign: 'center',
-  },
-  contentContainer: {
-    paddingTop: 30,
-  },
-  welcomeContainer: {
-    alignItems: 'center',
-    marginTop: 10,
-    marginBottom: 20,
-  },
-  welcomeImage: {
-    width: 100,
-    height: 80,
-    resizeMode: 'contain',
-    marginTop: 3,
-    marginLeft: -10,
-  },
-  getStartedContainer: {
-    alignItems: 'center',
-    marginHorizontal: 50,
-  },
-  homeScreenFilename: {
-    marginVertical: 7,
-  },
-  codeHighlightText: {
-    color: 'rgba(96,100,109, 0.8)',
-  },
-  codeHighlightContainer: {
-    backgroundColor: 'rgba(0,0,0,0.05)',
-    borderRadius: 3,
-    paddingHorizontal: 4,
-  },
-  getStartedText: {
-    fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
-    lineHeight: 24,
-    textAlign: 'center',
-  },
-  tabBarInfoContainer: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    ...Platform.select({
-      ios: {
-        shadowColor: 'black',
-        shadowOffset: { width: 0, height: -3 },
-        shadowOpacity: 0.1,
-        shadowRadius: 3,
-      },
-      android: {
-        elevation: 20,
-      },
-    }),
-    alignItems: 'center',
-    backgroundColor: '#fbfbfb',
-    paddingVertical: 20,
-  },
-  tabBarInfoText: {
-    fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
-    textAlign: 'center',
-  },
-  navigationFilename: {
+  timerIcon: {
+    height: 52.5,
+    width: 52.5,
+    marginLeft: 20,
     marginTop: 5,
   },
-  helpContainer: {
-    marginTop: 15,
-    alignItems: 'center',
+  timerButtonText: {
+    color:'#E0F5F6',
+    textAlign:'center',
+    fontSize: 15,
+    paddingTop: 5,
   },
-  helpLink: {
-    paddingVertical: 15,
+  calendarIcon: {
+    height: 62.5,
+    width: 62.5,
+    marginLeft: 15,
   },
-  helpLinkText: {
-    fontSize: 14,
-    color: '#2e78b7',
+  calendarButtonText: {
+    color:'#E0F5F6',
+    textAlign:'center',
+    fontSize: 15,
+  },
+  createEventIcon: {
+    height: 62.5,
+    width: 62.5,
+    marginLeft: 15,
+    marginTop: 0,
+  },
+  createEventButtonText: {
+    color:'#E0F5F6',
+    textAlign:'center',
+    fontSize: 15,
+    paddingTop: 4,
+  },
+  totalStudyTimeContainer: { //here my friend blah blah blah blah blahb ablh
+    flex: .25,
+  },
+  totalStudyTime: {
+    justifyContent: 'center',
+    alignContent: 'center',
+    marginLeft: (Math.round(Dimensions.get('window').width) - (Math.round(Dimensions.get('window').width) / 1.25)) / 2,
+    backgroundColor: '#47C494',
+    height: 200,
+    width: Math.round(Dimensions.get('window').width) / 1.25 ,
+    borderRadius:10,
+    borderWidth: 1,
+    borderColor: '#fff',
+    shadowOpacity: 0.8,
+    shadowOffset: {width: 1, height: 13}
+  },
+  totalStudyTimeText: {
+    fontSize: 40,
+    color: '#E0F5F6',
+    textAlign: 'center',
+  },
+  studyQuoteContainer: { //here my friend blah blah blah blah blahb ablh
+    flex: .25,
+  },
+  studyQuote: {
+    justifyContent: 'center',
+    alignContent: 'center',
+    backgroundColor: '#EFEFEF',
+    marginLeft: (Math.round(Dimensions.get('window').width) - (Math.round(Dimensions.get('window').width) / 1.10)) / 2,
+    marginTop: 20,
+    height: 100,
+    width: Math.round(Dimensions.get('window').width) / 1.10,
+    borderRadius:10,
+    borderWidth: 1,
+    borderColor: '#fff',
+    shadowOpacity: 0.8,
+    shadowOffset: {width: 1, height: 13}
+  },
+  studyQuoteText: {
+    textAlign: 'center',
+    fontStyle: 'italic',
   },
 });
