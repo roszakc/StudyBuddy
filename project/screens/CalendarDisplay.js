@@ -2,19 +2,46 @@ import React, {Component} from 'react'
 import 'react-native-gesture-handler';
 import {NavigationContext} from '@react-navigation/native'
 import {ImageBackground, Platform, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import CalendarPicker from 'react-native-calendar-picker';
 import RNCalendarEvents from "react-native-calendar-events";
 
 export default class CalendarDisplay extends Component{
 
     static contextType = NavigationContext;
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            selectedStartDate: null,
+        };
+        this.onDateChange = this.onDateChange.bind(this);
+    }
+
+    onDateChange(date) {
+        this.setState({
+            selectedStartDate: date,
+        });
+    }
+
     render() {
         const navigation = this.context;
+        const { selectedStartDate } = this.state;
+        const startDate = selectedStartDate ? selectedStartDate.toString() : '';
         return(
             <ImageBackground style={styles.backgroundImage} source={require("../assets/images/HomePageLeaf.jpg")}>
                 <View style={styles.titleCircle}>
                     <Text style={styles.titleText}>Calendar Display</Text>
                 </View>
+                <View style={styles.container}>
+                    <CalendarPicker
+                        onDateChange={this.onDateChange}
+                    />
+
+                    <View>
+                        <Text>SELECTED DATE:{ startDate }</Text>
+                    </View>
+                </View>
+
                 <TouchableOpacity
                     style={styles.getStartedButton}
                     onPress={() => navigation.navigate('OverviewScreen')}
@@ -25,6 +52,7 @@ export default class CalendarDisplay extends Component{
             </ImageBackground>
         );
 
+        /*
         function calendar(){
             if(RNCalendarEvents.authorizationStatus()){
 
@@ -35,11 +63,20 @@ export default class CalendarDisplay extends Component{
             RNCalendarEvents.findCalendars()
             RNCalendarEvents.saveEvent(title, details);
         }
+        */
     }
 
+
 }
-
-
+/*
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#FFFFFF',
+        marginTop: 100,
+    },
+});
+*/
 
 const styles = StyleSheet.create({
     container: {
