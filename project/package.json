@@ -27,19 +27,29 @@
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.0.tar.gz",
+<<<<<<< HEAD
     "react-native-add-calendar-event": "^3.0.0",
+=======
+    "react-native-calendar-datepicker": "^1.2.2",
+>>>>>>> d097a0f9ba2b482b14b84d81ad8f325a73fbccbf
     "react-native-calendar-events": "^1.7.3",
     "react-native-calendar-picker": "^6.0.5",
     "react-native-gesture-handler": "~1.5.0",
     "react-native-reanimated": "~1.4.0",
     "react-native-safe-area-context": "0.6.0",
     "react-native-screens": "2.0.0-alpha.12",
+<<<<<<< HEAD
     "react-native-web": "~0.11.7"
+=======
+    "react-native-web": "~0.11.7",
+    "moment": "latest"
+>>>>>>> d097a0f9ba2b482b14b84d81ad8f325a73fbccbf
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
     "babel-preset-expo": "~8.0.0",
-    "jest-expo": "~36.0.1"
+    "jest-expo": "~36.0.1",
+    "tcomb-form-native": "^0.6.20"
   },
   "private": true
 }
