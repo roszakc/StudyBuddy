@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import {ImageBackground, Button, Platform, StyleSheet, Text, Alert, TouchableOpacity, View} from 'react-native';
+import {ImageBackground, Button, Platform, StyleSheet, Text, Alert, TouchableOpacity, View, TextInput} from 'react-native';
 import {NavigationContext} from '@react-navigation/native'
+import {StudyForm} from '../components/StudyForm.js'
 
 export default class TimeToStudy extends Component {
     static contextType = NavigationContext;
@@ -12,6 +13,16 @@ export default class TimeToStudy extends Component {
                 <View style={styles.titleCircle}>
                     <Text style={styles.titleText}>Time To Study</Text>
                 </View>
+                    <View stlye = {styles.studyForm} >
+                    <Text > Time to Study</Text>
+                        <View>
+                            <TextInput 
+                            placeholder="Location" />
+                            <TextInput
+                            placeholder="Time Goal"
+                            />
+                        </View>
+                    </View>
                 <TouchableOpacity
                     style={styles.getStartedButton}
                     onPress={() => navigation.navigate('TimerScreen')}
@@ -53,6 +64,12 @@ const styles = StyleSheet.create({
     margin: 0,
     fontSize: 50,
     fontFamily: 'rock-salt',
+  },
+  studyForm: {
+    marginRight:80,
+    marginLeft:80,
+    marginTop: 240,
+    backgroundColor:'#47C494',
   },
   getStartedButton: {
     marginRight:80,
