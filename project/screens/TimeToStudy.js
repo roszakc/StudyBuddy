@@ -1,15 +1,13 @@
 import React, {Component} from 'react';
 import {ImageBackground, Button, Platform, StyleSheet, Text, Alert, TouchableOpacity, View} from 'react-native';
 
-
-export default class TimerScreen extends Component {
-
+export default class TimeToStudy extends Component {
 
     render() {
         return (
             <ImageBackground style={styles.backgroundImage} source={require("../assets/images/HomePageLeaf.jpg")}>
                 <View style={styles.titleCircle}>
-                    <Text style={styles.titleText}>Timer Running</Text>
+                    <Text style={styles.titleText}>Time To Study</Text>
                 </View>
             </ImageBackground>
         );

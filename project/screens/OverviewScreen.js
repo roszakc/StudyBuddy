@@ -1,4 +1,3 @@
-
 import React, {Component} from 'react';
 import {ImageBackground, Button, Platform, StyleSheet, Text, Alert, TouchableOpacity, View} from 'react-native';
 import {NavigationContext} from '@react-navigation/native'
@@ -21,7 +20,6 @@ export default class OverviewScreen extends Component{
                     style={styles.getStartedButton}
                     onPress={() => goBack()}
                     underlayColor='fff'>
-
                     <Text style={styles.getStartedButtonText}>Back</Text>
                 </TouchableOpacity>
 
@@ -29,7 +27,6 @@ export default class OverviewScreen extends Component{
                     style={styles.getStartedButton}
                     onPress={() => navigation.navigate('CalendarDisplay')}
                     underlayColor='fff'>
-
                     <Text style={styles.getStartedButtonText}>Calendar</Text>
                 </TouchableOpacity>
             </ImageBackground>
