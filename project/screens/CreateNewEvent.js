@@ -16,10 +16,10 @@ export default class CreateNewEvent extends Component {
                 </View>
                 <TouchableOpacity
                     style={styles.getStartedButton}
-                    onPress={() => navigation.navigate('OverviewScreen')}
+                    onPress={() => navigation.navigate('CalendarDisplay')}
                     underlayColor='fff'>
 
-                    <Text style={styles.getStartedButtonText}>Home</Text>
+                    <Text style={styles.getStartedButtonText}>Add to Calendar</Text>
                 </TouchableOpacity>
             </ImageBackground>
         );

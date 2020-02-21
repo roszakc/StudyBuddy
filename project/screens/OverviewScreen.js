@@ -21,13 +21,12 @@ export default class OverviewScreen extends Component{
                 <View style={styles.buttonContainer}>
                   <TouchableOpacity
                       style={styles.Button}
-                      onPress={() => navigation.navigate('TimerScreen')}
+                      onPress={() => navigation.navigate('TimeToStudy')}
                       underlayColor='fff'>
                       <Image style={styles.timerIcon} source={require("../assets/images/timerIcon.png")}/>
 
-                      <Text style={styles.timerButtonText}>Timer</Text>
+                      <Text style={styles.timerButtonText}>Study Time</Text>
                   </TouchableOpacity>
-
                   <TouchableOpacity
                       style={styles.Button}
                       onPress={() => navigation.navigate('CalendarDisplay')}
