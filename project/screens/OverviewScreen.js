@@ -18,10 +18,10 @@ export default class OverviewScreen extends Component{
                 </View>
                 <TouchableOpacity
                     style={styles.getStartedButton}
-                    onPress={() => navigation.navigate('TimerScreen')}
+                    onPress={() => navigation.navigate('TimeToStudy')}
                     underlayColor='fff'>
 
-                    <Text style={styles.getStartedButtonText}>Timer</Text>
+                    <Text style={styles.getStartedButtonText}>Time to Study</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity

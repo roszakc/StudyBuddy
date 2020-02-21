@@ -14,10 +14,10 @@ export default class TimeToStudy extends Component {
                 </View>
                 <TouchableOpacity
                     style={styles.getStartedButton}
-                    onPress={() => navigation.navigate('OverviewScreen')}
+                    onPress={() => navigation.navigate('TimerScreen')}
                     underlayColor='fff'>
 
-                    <Text style={styles.getStartedButtonText}>Home</Text>
+                    <Text style={styles.getStartedButtonText}>Start Timer</Text>
                 </TouchableOpacity>
             </ImageBackground>
         );
