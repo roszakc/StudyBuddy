@@ -14,6 +14,7 @@ export default class HomeScreen extends Component {
           <View style={styles.titleCircle}>
             <Text style={styles.titleText}>Study Buddy</Text>
           </View>
+
           <TouchableOpacity
               style={styles.getStartedButton}
               onPress={() => navigation.navigate('OverviewScreen', "test")}
