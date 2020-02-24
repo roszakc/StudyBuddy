@@ -9,11 +9,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import BottomTabNavigator from './navigation/BottomTabNavigator';
 import useLinking from './navigation/useLinking';
-import HomeScreen from "./screens/HomeScreen";
-import CalendarDisplay from "./screens/CalendarDisplay";
-import OverviewScreen from "./screens/OverviewScreen";
-
-const Stack = createStackNavigator();
 
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = React.useState(false);
@@ -22,43 +17,6 @@ export default function App(props) {
   const { getInitialState } = useLinking(containerRef);
 
   const Stack = createStackNavigator();
-  function MyStack() {
-    return (
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen
-            name="OverviewScreen"
-            component={OverviewScreen}
-            options={{
-              title: '',
-            }}
-          />
-          <Stack.Screen
-              name="HomeScreen"
-              component={HomeScreen}
-              options={{
-                title: '',
-              }}
-          />
-          <Stack.Screen
-              name="CalendarDisplay"
-              component={CalendarDisplay}
-              options={{
-                title: '',
-              }}
-          />
-          <Stack.Screen
-            name="NewEvent"
-            component={NewEvent}
-            options={{
-              title: '',
-            }}
-          />
-          <Stack.Screen name="Profile" component={Profile} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    );
-  }
 
   // Load any resources or data that we need prior to rendering the app
   React.useEffect(() => {
