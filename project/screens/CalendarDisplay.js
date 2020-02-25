@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import 'react-native-gesture-handler';
 import {NavigationContext} from '@react-navigation/native'
-import {ImageBackground, Platform, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {Dimensions, ImageBackground, Platform, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import CalendarPicker from 'react-native-calendar-picker';
 import RNCalendarEvents from "react-native-calendar-events";
 
@@ -28,12 +28,21 @@ export default class CalendarDisplay extends Component{
         const { selectedStartDate } = this.state;
         const startDate = selectedStartDate ? selectedStartDate.toString() : '';
         return(
-            <ImageBackground style={styles.backgroundImage} source={require("../assets/images/HomePageLeaf.jpg")}>
+            <View style={styles.Container}>
                 <View style={styles.titleCircle}>
-                    <Text style={styles.titleText}>Calendar Display</Text>
+                    <Text style={styles.titleText}>Calendar</Text>
                 </View>
-                <View style={styles.container}>
+                <View>
                     <CalendarPicker
+                        selectedDayColor={'#47C494'}
+                        dayShape={'square'}
+                        dayLabelsWrapper={{
+                            borderBottomWidth: 2,
+                            borderTopWidth: 2,
+                            borderLeftWidth: 2,
+                            borderRightWidth: 2,
+                            borderColor: '#000',
+                        }}
                         onDateChange={this.onDateChange}
                     />
 
@@ -43,13 +52,13 @@ export default class CalendarDisplay extends Component{
                 </View>
 
                 <TouchableOpacity
-                    style={styles.getStartedButton}
+                    style={styles.homeButton}
                     onPress={() => navigation.navigate('OverviewScreen')}
                     underlayColor='fff'>
 
-                    <Text style={styles.getStartedButtonText}>Home</Text>
+                    <Text style={styles.homeButtonText}>Home</Text>
                 </TouchableOpacity>
-            </ImageBackground>
+            </View>
         );
 
         /*
@@ -68,145 +77,47 @@ export default class CalendarDisplay extends Component{
 
 
 }
-/*
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#FFFFFF',
-        marginTop: 100,
-    },
-});
-*/
 
 const styles = StyleSheet.create({
-    container: {
+    Container: {
+        flex: 1,
         justifyContent: 'center',
-    },
-    backgroundImage: {
-        justifyContent: 'center',
-        height: 1000,
-        width: null,
+        height: Math.round(Dimensions.get('window').height),
+        width: Math.round(Dimensions.get('window').width),
+        backgroundColor: '#E0F5F6',
         alignContent: 'center',
     },
     titleCircle: {
-        flex: .15,
-        alignContent: 'center',
         justifyContent: 'center',
-        marginTop: -640,
-        backgroundColor: '#47C494',
-        borderBottomWidth: 2,
-        borderColor: '#fff',
+        alignContent: 'center',
+        width: Math.round(Dimensions.get('window').width),
+        height: Math.round(Dimensions.get('window').width) / 4,
+        marginTop: -(Math.round(Dimensions.get('window').width) / 2)/1.5,
+        borderWidth: 2,
+        backgroundColor: '#47C494'
     },
     titleText: {
         color: '#E0F5F6',
         position: 'absolute',
-        top: '40%',
         width: '100%',
         textAlign: 'center',
         margin: 0,
         fontSize: 50,
         fontFamily: 'rock-salt',
     },
-    getStartedButton: {
-        marginRight:80,
-        marginLeft:80,
-        marginTop: 240,
+    homeButton: {
         justifyContent: 'center',
         alignContent: 'center',
-        paddingTop:20,
-        paddingBottom:20,
-        backgroundColor:'#47C494',
-        borderRadius:10,
-        borderWidth: 1,
-        borderColor: '#fff',
-        shadowOpacity: 0.8,
-        shadowOffset: {width: 1, height: 13}
+        width: 120,
+        height: 60,
+        borderWidth: 2,
+        backgroundColor: '#47C494',
+        marginLeft: Math.round(Dimensions.get('window').width)/2 - 60,
+        marginTop: 40,
     },
-    getStartedButtonText: {
+    homeButtonText: {
         color:'#E0F5F6',
         textAlign:'center',
         fontSize: 20,
-    },
-    developmentModeText: {
-        marginBottom: 20,
-        color: 'rgba(0,0,0,0.4)',
-        fontSize: 14,
-        lineHeight: 19,
-        textAlign: 'center',
-    },
-    contentContainer: {
-        paddingTop: 30,
-    },
-    welcomeContainer: {
-        alignItems: 'center',
-        marginTop: 10,
-        marginBottom: 20,
-    },
-    welcomeImage: {
-        width: 100,
-        height: 80,
-        resizeMode: 'contain',
-        marginTop: 3,
-        marginLeft: -10,
-    },
-    getStartedContainer: {
-        alignItems: 'center',
-        marginHorizontal: 50,
-    },
-    homeScreenFilename: {
-        marginVertical: 7,
-    },
-    codeHighlightText: {
-        color: 'rgba(96,100,109, 0.8)',
-    },
-    codeHighlightContainer: {
-        backgroundColor: 'rgba(0,0,0,0.05)',
-        borderRadius: 3,
-        paddingHorizontal: 4,
-    },
-    getStartedText: {
-        fontSize: 17,
-        color: 'rgba(96,100,109, 1)',
-        lineHeight: 24,
-        textAlign: 'center',
-    },
-    tabBarInfoContainer: {
-        position: 'absolute',
-        bottom: 0,
-        left: 0,
-        right: 0,
-        ...Platform.select({
-            ios: {
-                shadowColor: 'black',
-                shadowOffset: { width: 0, height: -3 },
-                shadowOpacity: 0.1,
-                shadowRadius: 3,
-            },
-            android: {
-                elevation: 20,
-            },
-        }),
-        alignItems: 'center',
-        backgroundColor: '#fbfbfb',
-        paddingVertical: 20,
-    },
-    tabBarInfoText: {
-        fontSize: 17,
-        color: 'rgba(96,100,109, 1)',
-        textAlign: 'center',
-    },
-    navigationFilename: {
-        marginTop: 5,
-    },
-    helpContainer: {
-        marginTop: 15,
-        alignItems: 'center',
-    },
-    helpLink: {
-        paddingVertical: 15,
-    },
-    helpLinkText: {
-        fontSize: 14,
-        color: '#2e78b7',
     },
 });
