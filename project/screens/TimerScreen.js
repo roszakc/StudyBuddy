@@ -1,50 +1,47 @@
 import React, {Component} from 'react';
 import {ImageBackground, Button, Platform, StyleSheet, Text, Alert, TouchableOpacity, View, AppRegistry, TouchableHighlight} from 'react-native';
 import {NavigationContext} from '@react-navigation/native'
-import { Stopwatch, Timer } from 'react-native-stopwatch-timer'
+import { Timer } from 'react-native-stopwatch-timer'
+import TimeToStudy from "./TimeToStudy";
 
 
 export default class TimerScreen extends Component {
-    static contextType = NavigationContext;
+    //static contextType = NavigationContext;
 
     constructor(props) {
       super(props);
       this.state = {
-        timerStart: false,
-        stopwatchStart: false,
-        totalDuration: 90000,
+        timerStart: true,
+        totalDuration: 60000,
         timerReset: false,
-        stopwatchReset: false,
         currentTime: 0,
       };
       this.toggleTimer = this.toggleTimer.bind(this);
       this.resetTimer = this.resetTimer.bind(this);
-      this.toggleStopwatch = this.toggleStopwatch.bind(this);
       this.resetStopwatch = this.resetStopwatch.bind(this);
     }
- 
+
     toggleTimer() {
       this.setState({timerStart: !this.state.timerStart, timerReset: false});
     }
- 
+
     resetTimer() {
       this.setState({timerStart: false, timerReset: true});
     }
- 
-    toggleStopwatch() {
-      this.setState({stopwatchStart: !this.state.stopwatchStart, stopwatchReset: false});
-    }
- 
+
     resetStopwatch() {
       this.setState({stopwatchStart: false, stopwatchReset: true});
     }
-  
+
     getFormattedTime(time) {
         this.currentTime = time;
     }
 
+
     render() {
-        const navigation = this.context;
+        const {route, navigation} = this.props;
+        const userTime = route.params.userTime;
+
         return (
             <ImageBackground style={styles.backgroundImage} source={require("../assets/images/HomePageLeaf.jpg")}>
                 <View style={styles.titleCircle}>
@@ -52,57 +49,56 @@ export default class TimerScreen extends Component {
                 </View>
 
                 <View >
-                <Stopwatch laps msecs start={this.state.stopwatchStart}
-                    reset={this.state.stopwatchReset}
-                    options={options}
-                    getTime={this.getFormattedTime} />
-
-                  <TouchableHighlight onPress={this.toggleStopwatch}>
-                    <Text style={{fontSize: 30}}>{!this.state.stopwatchStart ? "Start" : "Stop"}</Text>
-                  </TouchableHighlight>
-
-                  <TouchableHighlight onPress={this.resetStopwatch}>
-                    <Text style={{fontSize: 30}}>Reset</Text>
-                  </TouchableHighlight>
-
-                  <Timer totalDuration={this.state.totalDuration} msecs start={this.state.timerStart}
+                  <Timer totalDuration={(this.state.totalDuration * userTime)} secs start={this.state.timerStart}
                     reset={this.state.timerReset}
                     options={options}
-                    handleFinish={handleTimerComplete}
+                    handleFinish={this.handleTimerComplete}
                     getTime={this.getFormattedTime} />
 
-                  <TouchableHighlight onPress={this.toggleTimer}>
+                  <TouchableOpacity onPress={this.toggleTimer}>
                     <Text style={{fontSize: 30}}>{!this.state.timerStart ? "Start" : "Stop"}</Text>
-                  </TouchableHighlight>
+                  </TouchableOpacity>
 
-                  <TouchableHighlight onPress={this.resetTimer}>
+                  {/*START TO BE REMOVED*/}
+                  <TouchableOpacity onPress={this.resetTimer}>
                     <Text style={{fontSize: 30}}>Reset</Text>
-                  </TouchableHighlight>
-                </View>
+                  </TouchableOpacity>
 
+                </View>
 
 
                 <TouchableOpacity
                     style={styles.getStartedButton}
                     onPress={() => navigation.navigate('OverviewScreen')}
                     underlayColor='fff'>
-
                     <Text style={styles.getStartedButtonText}>Home</Text>
                 </TouchableOpacity>
+              {/*END TO BE REMOVED*/}
+
             </ImageBackground>
         );
     }
 
+   handleTimerComplete = (title, message) => {
+    Alert.alert('Good Job!', 'Pat yourself on the back', [
+      {text: 'Home', onPress: () => this.handleReset()},
+    ], {cancelable: false});
+  };
+
+  handleReset = () => {
+    const navigation = this.props.navigation;
+    this.resetTimer();
+    navigation.navigate('OverviewScreen');
+  };
+
 }
 
-const handleTimerComplete = () => alert("custom completion function");
- 
 const options = {
   container: {
     backgroundColor: '#000',
     padding: 5,
     borderRadius: 5,
-    width: 220,
+    width: 200,
   },
   text: {
     fontSize: 30,
@@ -110,7 +106,7 @@ const options = {
     marginLeft: 7,
   }
 };
- 
+
 
 const styles = StyleSheet.create({
   container: {
