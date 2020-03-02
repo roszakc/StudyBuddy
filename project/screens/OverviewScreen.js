@@ -6,11 +6,9 @@ import 'react-native-gesture-handler';
 
 
 export default class OverviewScreen extends Component{
-    static contextType = NavigationContext;
 
     render() {
-        const {goBack} = this.props.navigation;
-        const navigation = this.context;
+        const navigation = this.props.navigation;
         return (
             <View style={styles.Container} source={require("../assets/images/HomePageLeaf.jpg")}>
                 <View style={styles.titleBarContainer}>

@@ -1,7 +1,6 @@
 import 'react-native-gesture-handler';
 import * as React from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
-import { SplashScreen } from 'expo';
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
@@ -23,7 +22,6 @@ export default function App(props) {
   React.useEffect(() => {
     async function loadResourcesAndDataAsync() {
       try {
-
         // Load fonts
         await Font.loadAsync({
           ...Ionicons.font,

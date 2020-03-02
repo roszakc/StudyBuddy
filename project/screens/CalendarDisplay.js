@@ -1,13 +1,9 @@
 import React, {Component} from 'react'
 import 'react-native-gesture-handler';
-import {NavigationContext} from '@react-navigation/native'
 import {Dimensions, ImageBackground, Platform, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import CalendarPicker from 'react-native-calendar-picker';
-import RNCalendarEvents from "react-native-calendar-events";
 
 export default class CalendarDisplay extends Component{
-
-    static contextType = NavigationContext;
 
     constructor(props) {
         super(props);
@@ -24,7 +20,7 @@ export default class CalendarDisplay extends Component{
     }
 
     render() {
-        const navigation = this.context;
+        const navigation = this.props.navigation;
         const { selectedStartDate } = this.state;
         const startDate = selectedStartDate ? selectedStartDate.toString() : '';
         return(

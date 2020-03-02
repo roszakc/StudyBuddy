@@ -1,11 +1,9 @@
 import React, {Component} from 'react';
 import {ImageBackground, Button, Platform, StyleSheet, Text, Alert, TouchableOpacity, View, TextInput} from 'react-native';
 import NumericInput, {calcSize} from 'react-native-numeric-input'
-import {NavigationContext} from '@react-navigation/native'
 import {StudyForm} from '../components/StudyForm.js'
 
 export default class TimeToStudy extends Component {
-    //static contextType = NavigationContext;
     constructor(props) {
       super(props);
       this.state = {

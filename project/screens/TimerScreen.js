@@ -37,7 +37,6 @@ export default class TimerScreen extends Component {
         this.currentTime = time;
     }
 
-
     render() {
         const {route, navigation} = this.props;
         const userTime = route.params.userTime;
