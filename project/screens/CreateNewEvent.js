@@ -12,10 +12,9 @@ import {
 } from 'react-native';
 
 export default class CreateNewEvent extends Component {
-    static contextType = NavigationContext;
 
     render() {
-        const navigation = this.context;
+        const navigation = this.props.navigation;
         return (
             <View style={styles.Container}>
                 <View style={styles.titleContainer}>

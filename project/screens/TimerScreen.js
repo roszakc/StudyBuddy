@@ -1,30 +1,111 @@
 import React, {Component} from 'react';
-import {ImageBackground, Button, Platform, StyleSheet, Text, Alert, TouchableOpacity, View} from 'react-native';
+import {ImageBackground, Button, Platform, StyleSheet, Text, Alert, TouchableOpacity, View, AppRegistry, TouchableHighlight} from 'react-native';
 import {NavigationContext} from '@react-navigation/native'
+import { Timer } from 'react-native-stopwatch-timer'
+import TimeToStudy from "./TimeToStudy";
 
 
 export default class TimerScreen extends Component {
-    static contextType = NavigationContext;
+    //static contextType = NavigationContext;
+
+    constructor(props) {
+      super(props);
+      this.state = {
+        timerStart: true,
+        totalDuration: 60000,
+        timerReset: false,
+        currentTime: 0,
+      };
+      this.toggleTimer = this.toggleTimer.bind(this);
+      this.resetTimer = this.resetTimer.bind(this);
+      this.resetStopwatch = this.resetStopwatch.bind(this);
+    }
+
+    toggleTimer() {
+      this.setState({timerStart: !this.state.timerStart, timerReset: false});
+    }
+
+    resetTimer() {
+      this.setState({timerStart: false, timerReset: true});
+    }
+
+    resetStopwatch() {
+      this.setState({stopwatchStart: false, stopwatchReset: true});
+    }
+
+    getFormattedTime(time) {
+        this.currentTime = time;
+    }
 
     render() {
-        const navigation = this.context;
+        const {route, navigation} = this.props;
+        const userTime = route.params.userTime;
+
         return (
             <ImageBackground style={styles.backgroundImage} source={require("../assets/images/HomePageLeaf.jpg")}>
                 <View style={styles.titleCircle}>
                     <Text style={styles.titleText}>Timer Running</Text>
                 </View>
+
+                <View >
+                  <Timer totalDuration={(this.state.totalDuration * userTime)} secs start={this.state.timerStart}
+                    reset={this.state.timerReset}
+                    options={options}
+                    handleFinish={this.handleTimerComplete}
+                    getTime={this.getFormattedTime} />
+
+                  <TouchableOpacity onPress={this.toggleTimer}>
+                    <Text style={{fontSize: 30}}>{!this.state.timerStart ? "Start" : "Stop"}</Text>
+                  </TouchableOpacity>
+
+                  {/*START TO BE REMOVED*/}
+                  <TouchableOpacity onPress={this.resetTimer}>
+                    <Text style={{fontSize: 30}}>Reset</Text>
+                  </TouchableOpacity>
+
+                </View>
+
+
                 <TouchableOpacity
                     style={styles.getStartedButton}
                     onPress={() => navigation.navigate('OverviewScreen')}
                     underlayColor='fff'>
-
                     <Text style={styles.getStartedButtonText}>Home</Text>
                 </TouchableOpacity>
+              {/*END TO BE REMOVED*/}
+
             </ImageBackground>
         );
     }
 
+   handleTimerComplete = (title, message) => {
+    Alert.alert('Good Job!', 'Pat yourself on the back', [
+      {text: 'Home', onPress: () => this.handleReset()},
+    ], {cancelable: false});
+  };
+
+  handleReset = () => {
+    const navigation = this.props.navigation;
+    this.resetTimer();
+    navigation.navigate('OverviewScreen');
+  };
+
 }
+
+const options = {
+  container: {
+    backgroundColor: '#000',
+    padding: 5,
+    borderRadius: 5,
+    width: 200,
+  },
+  text: {
+    fontSize: 30,
+    color: '#FFF',
+    marginLeft: 7,
+  }
+};
+
 
 const styles = StyleSheet.create({
   container: {
@@ -175,3 +256,5 @@ const styles = StyleSheet.create({
   },
 });
 
+
+AppRegistry.registerComponent('TimerScreen', () => TimerScreen);

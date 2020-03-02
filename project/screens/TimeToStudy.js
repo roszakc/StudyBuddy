@@ -1,13 +1,18 @@
 import React, {Component} from 'react';
 import {ImageBackground, Button, Platform, StyleSheet, Text, Alert, TouchableOpacity, View, TextInput} from 'react-native';
-import {NavigationContext} from '@react-navigation/native'
+import NumericInput, {calcSize} from 'react-native-numeric-input'
 import {StudyForm} from '../components/StudyForm.js'
 
 export default class TimeToStudy extends Component {
-    static contextType = NavigationContext;
+    constructor(props) {
+      super(props);
+      this.state = {
+        value: 1,
+      };
+    }
 
     render() {
-        const navigation = this.context;
+        const navigation = this.props.navigation;
         return (
             <ImageBackground style={styles.backgroundImage} source={require("../assets/images/HomePageLeaf.jpg")}>
                 <View style={styles.titleCircle}>
@@ -16,18 +21,31 @@ export default class TimeToStudy extends Component {
                     <View stlye = {styles.studyForm} >
                     <Text > Time to Study</Text>
                         <View>
-                            <TextInput 
-                            placeholder="Location" />
                             <TextInput
-                            placeholder="Time Goal"
+                            placeholder="Location" />
+
+                          <NumericInput
+                            value={this.state.value}
+                            onChange={value => this.setState({value})}
+                            totalWidth={240}
+                            totalHeight={50}
+                            step={1}
+                            minValue={1}
+                            valueType={'integer'}
+                            rounded
                             />
+
                         </View>
                     </View>
                 <TouchableOpacity
                     style={styles.getStartedButton}
-                    onPress={() => navigation.navigate('TimerScreen')}
+                    onPress={() => {
+                      navigation.navigate('TimerScreen', {
+                          userTime: this.state.value,
+                        });
+                      }
+                    }
                     underlayColor='fff'>
-
                     <Text style={styles.getStartedButtonText}>Start Timer</Text>
                 </TouchableOpacity>
             </ImageBackground>

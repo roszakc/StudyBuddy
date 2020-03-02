@@ -1,14 +1,11 @@
 import 'react-native-gesture-handler';
 import React, { Component } from 'react';
 import {ImageBackground, Button, Platform, StyleSheet, Text, Alert, TouchableOpacity, View} from 'react-native';
-import {NavigationContext} from '@react-navigation/native'
 
 export default class HomeScreen extends Component {
 
-  static contextType = NavigationContext;
-
   render(){
-    const navigation = this.context;
+    const navigation = this.props.navigation;
     return (
         <ImageBackground style={styles.backgroundImage} source={require("../assets/images/HomePageLeaf.jpg")}>
           <View style={styles.titleCircle}>

@@ -1,32 +1,27 @@
 import 'react-native-gesture-handler';
 import * as React from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
-import { SplashScreen } from 'expo';
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import BottomTabNavigator from './navigation/BottomTabNavigator';
-import useLinking from './navigation/useLinking';
+import HomeScreen from "./screens/HomeScreen";
+import OverviewScreen from "./screens/OverviewScreen";
+import TimeToStudy from "./screens/TimeToStudy";
+import TimerScreen from "./screens/TimerScreen";
+import CreateNewEvent from "./screens/CreateNewEvent";
+import CalendarDisplay from "./screens/CalendarDisplay";
+
+const Stack = createStackNavigator();
 
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = React.useState(false);
-  const [initialNavigationState, setInitialNavigationState] = React.useState();
-  const containerRef = React.useRef();
-  const { getInitialState } = useLinking(containerRef);
-
-  const Stack = createStackNavigator();
 
   // Load any resources or data that we need prior to rendering the app
   React.useEffect(() => {
     async function loadResourcesAndDataAsync() {
       try {
-        SplashScreen.preventAutoHide();
-
-        // Load our initial navigation state
-        setInitialNavigationState(await getInitialState());
-
         // Load fonts
         await Font.loadAsync({
           ...Ionicons.font,
@@ -38,25 +33,29 @@ export default function App(props) {
         console.warn(e);
       } finally {
         setLoadingComplete(true);
-        SplashScreen.hide();
       }
     }
 
     loadResourcesAndDataAsync();
   }, []);
 
-  if (!isLoadingComplete && !props.skipLoadingScreen) {
+  if (!isLoadingComplete) {
     return null;
   } else {
     return (
-      <View style={styles.container}>
-        {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-        <NavigationContainer ref={containerRef} initialState={initialNavigationState}>
-          <Stack.Navigator>
-            <Stack.Screen name=" " component={BottomTabNavigator} />
+        <NavigationContainer>
+          <Stack.Navigator
+              initalRouteName={"home"}
+              headerMode={'none'}
+          >
+            <Stack.Screen name={"home"} component={HomeScreen} />
+            <Stack.Screen name={"OverviewScreen"} component={OverviewScreen} />
+            <Stack.Screen name={"TimeToStudy"} component={TimeToStudy} />
+            <Stack.Screen name={"TimerScreen"} component={TimerScreen} />
+            <Stack.Screen name={"CreateNewEvent"} component={CreateNewEvent} />
+            <Stack.Screen name={"CalendarDisplay"} component={CalendarDisplay} />
           </Stack.Navigator>
         </NavigationContainer>
-      </View>
     );
   }
 }
