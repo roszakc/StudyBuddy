@@ -1,62 +1,76 @@
 
-<<<<<<< HEAD
-import React, {Component} from 'react';
-import {ImageBackground, Button, Platform, StyleSheet, Text, Alert, TouchableOpacity, View} from 'react-native';
+import React, {Component, useState} from 'react';
+import {ImageBackground, Button, Platform, StyleSheet, Text, Alert, TouchableOpacity, View, Picker, TextInput, Dimensions, Image} from 'react-native';
 import {NavigationContext} from '@react-navigation/native'
 import RNCalendarEvents from "react-native-calendar-events";
+import moment from 'moment';
 import * as AddCalendarEvent from 'react-native-add-calendar-event';
+const TIME_NOW_IN_UTC = moment.utc();
+const EVENT_TITLE = 'Lunch';
 
-=======
-import React, {Component, useState} from 'react';
-import {
-    Picker,
-    Text,
-    StyleSheet,
-    TextInput,
-    Button,
-    TouchableOpacity,
-    View,
-    Dimensions, Image
-} from 'react-native';
-import {NavigationContext} from '@react-navigation/native';
->>>>>>> d097a0f9ba2b482b14b84d81ad8f325a73fbccbf
+    /* 
+
+    var
+    event_title;
+    eventTime;
+    eventEndTime;
+    notes;
+
+    
+const utcDateToString = (momentInUTC: moment): string => {
+    let s = moment.utc(momentInUTC).format('YYYY-MM-DDTHH:mm:ss.SSS[Z]');
+    return s;
+};
+*/
+
 
 export default class CreateNewEvent extends Component {
     static contextType = NavigationContext;
 
+
     /*
-    function calendar(){
-        if(RNCalendarEvents.authorizationStatus()){
-
-        }
-        else{
-            RNCalendarEvents.authorizeEventStore();
-        }
-        RNCalendarEvents.findCalendars()
-        RNCalendarEvents.saveEvent(title, details);
-    }
-
-     */
     const eventConfig = {
-        title
-        // and other options
+        title,
+        startDate: utcDateToString(startDateUTC),
+        endDate: utcDateToString(moment.utc(startDateUTC).add(1, 'hours')),
+        notes: 'tasty!',
+        navigationBarIOS: {
+            tintColor: 'orange',
+            backgroundColor: 'green',
+            titleColor: 'blue',
+        },
     };
 
-        AddCalendarEvent.presentEventCreatingDialog(eventConfig)
-            .then((eventInfo: { calendarItemIdentifier: string, eventIdentifier: string }) => {
-                // handle success - receives an object with `calendarItemIdentifier` and `eventIdentifier` keys, both of type string.
-                // These are two different identifiers on iOS.
-                // On Android, where they are both equal and represent the event id, also strings.
-                // when { action: 'CANCELED' } is returned, the dialog was dismissed
-                console.warn(JSON.stringify(eventInfo));
-            })
+
+
+
+    AddCalendarEvent.presentEventCreatingDialog(eventConfig)
+        .then(
+            (eventInfo: {
+                calendarItemIdentifier: string,
+                eventIdentifier: string,
+            }) => {
+                alert('eventInfo -> ' + JSON.stringify(eventInfo));
+                }
+            )
             .catch((error: string) => {
-                // handle error such as when user rejected permissions
-                console.warn(error);
-                });
-        presentEventCreatingDialog(eventConfig);
+            // handle error such as when user rejected permissions
+            alert('Error -> ' + error);
+            });
+*/
+
+        //presentEventCreatingDialog(eventConfig);
     render() {
         const navigation = this.context;
+        //presentEventCreatingDialog(eventConfig);
+        /*
+        var person = prompt("Please enter your name", "Harry Potter");
+
+    if (person != null) {
+        document.getElementById("demo").innerHTML =
+         "Hello " + person + "! How are you today?";
+        }
+        */
         return (
             <View style={styles.Container}>
                 <View style={styles.titleContainer}>
@@ -66,7 +80,15 @@ export default class CreateNewEvent extends Component {
                 </View>
                 <View style={styles.answerFillContainer}>
                     <View>
-                        <Text style={styles.aboveText}>For</Text>
+                        <Text style={styles.aboveText}>
+                            Event title: {EVENT_TITLE}
+                            {'\n'}
+                            Event Date Time:{' '}
+                            {moment
+                                .utc(TIME_NOW_IN_UTC)
+                                .local()
+                                .format('lll')}
+                        </Text>
                         <TextInput style={styles.textInputBox}
                             placeholder="Subject" />
                         <Text style={styles.aboveText}>I have</Text>
@@ -77,7 +99,9 @@ export default class CreateNewEvent extends Component {
                         <Text style={styles.leftText}>On</Text>
                         <TouchableOpacity>
                             <Image style={styles.calendarIcon} source={require("../assets/images/calendarIcon.png")}/>
-                            {/*onPress={() => } This is where you do the on press calendar selector*/}
+                            onPress={() =>{
+                            CreateNewEvent.addToCalendar(EVENT_TITLE, TIME_NOW_IN_UTC);
+                        } }
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.addButton}>
                             <Text style={styles.addButtonText}>Add</Text>
@@ -89,6 +113,73 @@ export default class CreateNewEvent extends Component {
         );
     }
 }
+
+/*
+static addToCalendar = (title: string, startDateUTC: moment) => {
+
+    const eventConfig = {
+        title,
+        startDate: utcDateToString(startDateUTC),
+        endDate: utcDateToString(moment.utc(startDateUTC).add(1, 'hours')),
+        notes: 'tasty!',
+        navigationBarIOS: {
+            tintColor: 'orange',
+            backgroundColor: 'green',
+            titleColor: 'blue',
+        },
+    };
+
+    AddCalendarEvent.presentEventCreatingDialog(eventConfig)
+        .then(
+            (eventInfo: {
+                calendarItemIdentifier: string,
+                eventIdentifier: string,
+            }) => {
+                alert('eventInfo -> ' + JSON.stringify(eventInfo));
+            }
+        )
+        .catch((error: string) => {
+            // handle error such as when user rejected permissions
+            alert('Error -> ' + error);
+        });
+
+
+static editCalendarEventWithId = (eventId: string) => {
+    const eventConfig = {
+        eventId,
+    };
+
+    AddCalendarEvent.presentEventEditingDialog(eventConfig)
+        .then(eventInfo => {
+            alert('eventInfo -> ' + JSON.stringify(eventInfo));
+        })
+        .catch((error: string) => {
+            alert('Error -> ' + error);
+        });
+};
+
+static showCalendarEventWithId = (eventId: string) => {
+    const eventConfig = {
+        eventId,
+        allowsEditing: true,
+        allowsCalendarPreview: true,
+        navigationBarIOS: {
+            tintColor: 'orange',
+            backgroundColor: 'green',
+        },
+    };
+
+    AddCalendarEvent.presentEventViewingDialog(eventConfig)
+        .then(eventInfo => {
+            alert('eventInfo -> ' + JSON.stringify(eventInfo));
+        })
+        .catch((error: string) => {
+            alert('Error -> ' + error);
+        });
+};
+}
+*/
+
 
 const styles = StyleSheet.create({
     Container: {
