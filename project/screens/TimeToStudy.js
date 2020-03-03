@@ -190,4 +190,3 @@ const styles = StyleSheet.create({
     color: '#2e78b7',
   },
 });
-
