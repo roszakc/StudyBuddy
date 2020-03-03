@@ -1,5 +1,17 @@
 import React, {Component} from 'react';
-import {ImageBackground, Button, Platform, StyleSheet, Text, Alert, TouchableOpacity, View, AppRegistry, TouchableHighlight} from 'react-native';
+import {
+  ImageBackground,
+  Button,
+  Platform,
+  StyleSheet,
+  Text,
+  Alert,
+  TouchableOpacity,
+  View,
+  AppRegistry,
+  TouchableHighlight,
+  Dimensions
+} from 'react-native';
 import {NavigationContext} from '@react-navigation/native'
 import { Timer } from 'react-native-stopwatch-timer'
 import TimeToStudy from "./TimeToStudy";
@@ -42,8 +54,8 @@ export default class TimerScreen extends Component {
         const userTime = route.params.userTime;
 
         return (
-            <ImageBackground style={styles.backgroundImage} source={require("../assets/images/HomePageLeaf.jpg")}>
-                <View style={styles.titleCircle}>
+            <View style={styles.Container}>
+                <View style={styles.titleBar}>
                     <Text style={styles.titleText}>Timer Running</Text>
                 </View>
 
@@ -74,7 +86,7 @@ export default class TimerScreen extends Component {
                 </TouchableOpacity>
               {/*END TO BE REMOVED*/}
 
-            </ImageBackground>
+            </View>
         );
     }
 
@@ -108,42 +120,45 @@ const options = {
 
 
 const styles = StyleSheet.create({
-  container: {
+  Container: {
+    flex: 1,
     justifyContent: 'center',
-  },
-  backgroundImage: {
-    justifyContent: 'center',
-    height: 1000,
-    width: null,
+    height: Math.round(Dimensions.get('window').height),
+    width: Math.round(Dimensions.get('window').width),
+    backgroundColor: '#E0F5F6',
     alignContent: 'center',
   },
-  titleCircle: {
-    flex: .15,
-    alignContent: 'center',
-    justifyContent: 'center',
-    marginTop: -640,
-    backgroundColor: '#47C494',
-    borderBottomWidth: 2,
-    borderColor: '#fff',
+  titleBarContainer: {
+    flex: .2,
+  },
+  titleBar: {
+    height: Math.round(Dimensions.get('window').height)/10,
+    backgroundColor: '#EFEFEF',
+    shadowOpacity: 0.8,
+    shadowOffset: {width: 1, height: 4}
   },
   titleText: {
-    color: '#E0F5F6',
+    color: '#000000',
     position: 'absolute',
-    top: '40%',
+    top: '15%',
     width: '100%',
     textAlign: 'center',
-    margin: 0,
-    fontSize: 50,
+    fontSize: 30,
     fontFamily: 'rock-salt',
   },
-  getStartedButton: {
-    marginRight:80,
-    marginLeft:80,
-    marginTop: 240,
+  buttonContainer: {
+    flex: .25,
+    flexDirection: 'row',
+    height: 95,
+    marginTop: -100,
+  },
+  Button: {
     justifyContent: 'center',
     alignContent: 'center',
-    paddingTop:20,
-    paddingBottom:20,
+    marginLeft: 32.5,
+    marginTop: 30,
+    height: 95,
+    width: 95,
     backgroundColor:'#47C494',
     borderRadius:10,
     borderWidth: 1,
@@ -151,108 +166,17 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.8,
     shadowOffset: {width: 1, height: 13}
   },
-
-  secondButton: {
-    marginRight:80,
-    marginLeft:80,
-    marginTop: 240,
-    justifyContent: 'center',
-    alignContent: 'center',
-    paddingTop:20,
-    paddingBottom:20,
-    backgroundColor:'#47C494',
-    borderRadius:10,
-    borderWidth: 1,
-    borderColor: '#fff',
-    shadowOpacity: 0.8,
-    shadowOffset: {width: 1, height: 13}
-  },
-  getStartedButtonText: {
-    color:'#E0F5F6',
-    textAlign:'center',
-    fontSize: 20,
-  },
-  developmentModeText: {
-    marginBottom: 20,
-    color: 'rgba(0,0,0,0.4)',
-    fontSize: 14,
-    lineHeight: 19,
-    textAlign: 'center',
-  },
-  contentContainer: {
-    paddingTop: 30,
-  },
-  welcomeContainer: {
-    alignItems: 'center',
-    marginTop: 10,
-    marginBottom: 20,
-  },
-  welcomeImage: {
-    width: 100,
-    height: 80,
-    resizeMode: 'contain',
-    marginTop: 3,
-    marginLeft: -10,
-  },
-  getStartedContainer: {
-    alignItems: 'center',
-    marginHorizontal: 50,
-  },
-  homeScreenFilename: {
-    marginVertical: 7,
-  },
-  codeHighlightText: {
-    color: 'rgba(96,100,109, 0.8)',
-  },
-  codeHighlightContainer: {
-    backgroundColor: 'rgba(0,0,0,0.05)',
-    borderRadius: 3,
-    paddingHorizontal: 4,
-  },
-  getStartedText: {
-    fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
-    lineHeight: 24,
-    textAlign: 'center',
-  },
-  tabBarInfoContainer: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    ...Platform.select({
-      ios: {
-        shadowColor: 'black',
-        shadowOffset: { width: 0, height: -3 },
-        shadowOpacity: 0.1,
-        shadowRadius: 3,
-      },
-      android: {
-        elevation: 20,
-      },
-    }),
-    alignItems: 'center',
-    backgroundColor: '#fbfbfb',
-    paddingVertical: 20,
-  },
-  tabBarInfoText: {
-    fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
-    textAlign: 'center',
-  },
-  navigationFilename: {
+  timerIcon: {
+    height: 52.5,
+    width: 52.5,
+    marginLeft: 20,
     marginTop: 5,
   },
-  helpContainer: {
-    marginTop: 15,
-    alignItems: 'center',
-  },
-  helpLink: {
-    paddingVertical: 15,
-  },
-  helpLinkText: {
-    fontSize: 14,
-    color: '#2e78b7',
+  timerButtonText: {
+    color:'#E0F5F6',
+    textAlign:'center',
+    fontSize: 15,
+    paddingTop: 5,
   },
 });
 
