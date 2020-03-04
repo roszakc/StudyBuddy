@@ -37,12 +37,6 @@ export default class CreateNewEvent extends Component {
                             <Image style={styles.calendarIcon} source={require("../assets/images/calendarIcon.png")}/>
 
                         </TouchableOpacity>
-                        <TouchableOpacity
-                            style={styles.addButton}
-                            onPress={() => navigation.navigate('OverviewScreen')}>
-                            <Text style={styles.addButtonText}>Add</Text>
-
-                        </TouchableOpacity>
                     </View>
                 </View>
             </View>
@@ -60,7 +54,7 @@ const styles = StyleSheet.create({
         alignContent: 'center',
     },
     titleContainer: {
-        flex: .3,
+        flex: .2,
     },
     titleCircle: {
         justifyContent: 'center',
@@ -80,6 +74,7 @@ const styles = StyleSheet.create({
     },
     answerFillContainer: {
         flex: .7,
+        marginTop: Math.round(Dimensions.get('window').height)/10,
     },
     textInputBox: {
         backgroundColor: '#EFEFEF',

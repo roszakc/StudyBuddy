@@ -1,5 +1,17 @@
 import React, {Component} from 'react';
-import {ImageBackground, Button, Platform, StyleSheet, Text, Alert, TouchableOpacity, View, AppRegistry, TouchableHighlight} from 'react-native';
+import {
+  ImageBackground,
+  Button,
+  Platform,
+  StyleSheet,
+  Text,
+  Alert,
+  TouchableOpacity,
+  View,
+  AppRegistry,
+  TouchableHighlight,
+  Dimensions
+} from 'react-native';
 import {NavigationContext} from '@react-navigation/native'
 import { Timer } from 'react-native-stopwatch-timer'
 import TimeToStudy from "./TimeToStudy";
@@ -33,48 +45,41 @@ export default class TimerScreen extends Component {
       this.setState({stopwatchStart: false, stopwatchReset: true});
     }
 
-    getFormattedTime(time) {
-        this.currentTime = time;
-    }
-
     render() {
         const {route, navigation} = this.props;
         const userTime = route.params.userTime;
 
         return (
-            <ImageBackground style={styles.backgroundImage} source={require("../assets/images/HomePageLeaf.jpg")}>
-                <View style={styles.titleCircle}>
+            <View style={styles.Container}>
+                <View style={styles.titleBar}>
                     <Text style={styles.titleText}>Timer Running</Text>
                 </View>
+                <View style={styles.bottomOval}/>
 
-                <View >
-                  <Timer totalDuration={(this.state.totalDuration * userTime)} secs start={this.state.timerStart}
-                    reset={this.state.timerReset}
-                    options={options}
-                    handleFinish={this.handleTimerComplete}
-                    getTime={this.getFormattedTime} />
-
-                  <TouchableOpacity onPress={this.toggleTimer}>
-                    <Text style={{fontSize: 30}}>{!this.state.timerStart ? "Start" : "Stop"}</Text>
+                  <TouchableOpacity style={styles.startStopButton} onPress={this.toggleTimer}>
+                      <Timer totalDuration={(this.state.totalDuration * userTime)} secs start={this.state.timerStart}
+                             reset={this.state.timerReset}
+                             options={options}
+                             handleFinish={this.handleTimerComplete}
+                             getTime={this.getFormattedTime} />
+                    <Text style={styles.startStopButtonText}>{!this.state.timerStart ? "Press to Start" : "Press to Pause"}</Text>
                   </TouchableOpacity>
 
+                <View style={styles.buttonContainer}>
                   {/*START TO BE REMOVED*/}
-                  <TouchableOpacity onPress={this.resetTimer}>
-                    <Text style={{fontSize: 30}}>Reset</Text>
+                  <TouchableOpacity style={styles.Button} onPress={this.resetTimer}>
+                    <Text style={styles.buttonText}>Reset</Text>
                   </TouchableOpacity>
-
-                </View>
-
 
                 <TouchableOpacity
-                    style={styles.getStartedButton}
+                    style={styles.Button}
                     onPress={() => navigation.navigate('OverviewScreen')}
                     underlayColor='fff'>
-                    <Text style={styles.getStartedButtonText}>Home</Text>
+                    <Text style={styles.buttonText}>Home</Text>
                 </TouchableOpacity>
+                </View>
               {/*END TO BE REMOVED*/}
-
-            </ImageBackground>
+            </View>
         );
     }
 
@@ -94,166 +99,110 @@ export default class TimerScreen extends Component {
 
 const options = {
   container: {
-    backgroundColor: '#000',
-    padding: 5,
-    borderRadius: 5,
-    width: 200,
+    backgroundColor: '#E0F5F6',
+    width: Math.round(Dimensions.get('window').height)/10 * 2,
+      position: 'absolute',
+      top: '40%',
+      right: '10%',
   },
   text: {
-    fontSize: 30,
-    color: '#FFF',
-    marginLeft: 7,
+    fontSize: 40,
+    color: '#47C494',
+    textAlign: 'center',
   }
 };
 
 
 const styles = StyleSheet.create({
-  container: {
-    justifyContent: 'center',
-  },
-  backgroundImage: {
-    justifyContent: 'center',
-    height: 1000,
-    width: null,
-    alignContent: 'center',
-  },
-  titleCircle: {
-    flex: .15,
-    alignContent: 'center',
-    justifyContent: 'center',
-    marginTop: -640,
-    backgroundColor: '#47C494',
-    borderBottomWidth: 2,
-    borderColor: '#fff',
-  },
-  titleText: {
-    color: '#E0F5F6',
-    position: 'absolute',
-    top: '40%',
-    width: '100%',
-    textAlign: 'center',
-    margin: 0,
-    fontSize: 50,
-    fontFamily: 'rock-salt',
-  },
-  getStartedButton: {
-    marginRight:80,
-    marginLeft:80,
-    marginTop: 240,
-    justifyContent: 'center',
-    alignContent: 'center',
-    paddingTop:20,
-    paddingBottom:20,
-    backgroundColor:'#47C494',
-    borderRadius:10,
-    borderWidth: 1,
-    borderColor: '#fff',
-    shadowOpacity: 0.8,
-    shadowOffset: {width: 1, height: 13}
-  },
-
-  secondButton: {
-    marginRight:80,
-    marginLeft:80,
-    marginTop: 240,
-    justifyContent: 'center',
-    alignContent: 'center',
-    paddingTop:20,
-    paddingBottom:20,
-    backgroundColor:'#47C494',
-    borderRadius:10,
-    borderWidth: 1,
-    borderColor: '#fff',
-    shadowOpacity: 0.8,
-    shadowOffset: {width: 1, height: 13}
-  },
-  getStartedButtonText: {
-    color:'#E0F5F6',
-    textAlign:'center',
-    fontSize: 20,
-  },
-  developmentModeText: {
-    marginBottom: 20,
-    color: 'rgba(0,0,0,0.4)',
-    fontSize: 14,
-    lineHeight: 19,
-    textAlign: 'center',
-  },
-  contentContainer: {
-    paddingTop: 30,
-  },
-  welcomeContainer: {
-    alignItems: 'center',
-    marginTop: 10,
-    marginBottom: 20,
-  },
-  welcomeImage: {
-    width: 100,
-    height: 80,
-    resizeMode: 'contain',
-    marginTop: 3,
-    marginLeft: -10,
-  },
-  getStartedContainer: {
-    alignItems: 'center',
-    marginHorizontal: 50,
-  },
-  homeScreenFilename: {
-    marginVertical: 7,
-  },
-  codeHighlightText: {
-    color: 'rgba(96,100,109, 0.8)',
-  },
-  codeHighlightContainer: {
-    backgroundColor: 'rgba(0,0,0,0.05)',
-    borderRadius: 3,
-    paddingHorizontal: 4,
-  },
-  getStartedText: {
-    fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
-    lineHeight: 24,
-    textAlign: 'center',
-  },
-  tabBarInfoContainer: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    ...Platform.select({
-      ios: {
-        shadowColor: 'black',
-        shadowOffset: { width: 0, height: -3 },
-        shadowOpacity: 0.1,
-        shadowRadius: 3,
-      },
-      android: {
-        elevation: 20,
-      },
-    }),
-    alignItems: 'center',
-    backgroundColor: '#fbfbfb',
-    paddingVertical: 20,
-  },
-  tabBarInfoText: {
-    fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
-    textAlign: 'center',
-  },
-  navigationFilename: {
-    marginTop: 5,
-  },
-  helpContainer: {
-    marginTop: 15,
-    alignItems: 'center',
-  },
-  helpLink: {
-    paddingVertical: 15,
-  },
-  helpLinkText: {
-    fontSize: 14,
-    color: '#2e78b7',
-  },
+    Container: {
+      flex: 1,
+      height: Math.round(Dimensions.get('window').height),
+      width: Math.round(Dimensions.get('window').width),
+      backgroundColor: '#E0F5F6',
+      alignContent: 'center',
+    },
+    titleBarContainer: {
+      flex: .2,
+      justifyContent: 'center',
+      alignContent: 'center',
+    },
+    titleBar: {
+        height: Math.round(Dimensions.get('window').height),
+        marginTop: -Math.round(Dimensions.get('window').height) / 2 + 40 ,
+        backgroundColor: '#47C494',
+        width: Math.round(Dimensions.get('window').width),
+        borderRadius: Math.round(Dimensions.get('window').width) * 2,
+        shadowOpacity: 0.8,
+        shadowOffset: {width: 1, height: 4}
+    },
+    titleText: {
+      color: '#E0F5F6',
+      position: 'absolute',
+      top: '50%',
+      width: '100%',
+      textAlign: 'center',
+      fontSize: 50,
+      fontFamily: 'rock-salt',
+    },
+    buttonContainer: {
+        flex: .4,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginLeft: -15,
+        position: 'absolute',
+        top: '70%',
+        left: '5%',
+    },
+    startStopButton: {
+        flex: .31,
+        justifyContent: 'center',
+        alignContent: 'center',
+        marginLeft: (Math.round(Dimensions.get('window').width/2)) - ((Math.round(Dimensions.get('window').height)/10 * 2.5)/2),
+        position: 'absolute',
+        top: '40%',
+        height: Math.round(Dimensions.get('window').height)/10 * 2.5,
+        width: Math.round(Dimensions.get('window').height)/10 * 2.5,
+        backgroundColor:'#E0F5F6',
+        borderRadius:Math.round(Dimensions.get('window').height)/10 * 2.5 * 2,
+        borderWidth: 1,
+        borderColor: '#000',
+        shadowOpacity: 0.8,
+        shadowOffset: {width: 1, height: 13}
+    },
+    startStopButtonText: {
+        textAlign: 'center',
+        marginTop: 60,
+        fontSize: 20,
+        color: '#47C494',
+    },
+    Button: {
+        justifyContent: 'center',
+        alignContent: 'center',
+        marginLeft: (Math.round(Dimensions.get('window').width/4)) - ((Math.round(Dimensions.get('window').height)/10 * 2)/2),
+        marginTop: 30,
+        height: Math.round(Dimensions.get('window').height)/10,
+        width: Math.round(Dimensions.get('window').height)/10 * 2,
+        backgroundColor:'#E0F5F6',
+        borderRadius:10,
+        borderWidth: 1,
+        borderColor: '#000',
+        shadowOpacity: 0.8,
+        shadowOffset: {width: 1, height: 13}
+    },
+    buttonText: {
+        textAlign: 'center',
+        fontSize: 40,
+        color: '#47C494',
+    },
+    bottomOval: {
+        height: Math.round(Dimensions.get('window').height),
+        marginTop: -40,
+        backgroundColor: '#47C494',
+        width: Math.round(Dimensions.get('window').width),
+        borderRadius: Math.round(Dimensions.get('window').width) * 2,
+        shadowOpacity: 0.8,
+        shadowOffset: {width: 1, height: 4}
+    },
 });
 
 

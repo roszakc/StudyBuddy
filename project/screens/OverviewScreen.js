@@ -67,10 +67,11 @@ const styles = StyleSheet.create({
     alignContent: 'center',
   },
   titleBarContainer: {
-    flex: .25,
+    flex: .20,
   },
   titleBar: {
-    height: Math.round(Dimensions.get('window').height)/10,
+    height: Math.round(Dimensions.get('window').height)/8,
+    marginTop: -25,
     backgroundColor: '#EFEFEF',
     shadowOpacity: 0.8,
     shadowOffset: {width: 1, height: 4}
@@ -78,7 +79,7 @@ const styles = StyleSheet.create({
   titleText: {
     color: '#000000',
     position: 'absolute',
-    top: '15%',
+    top: '35%',
     width: '100%',
     textAlign: 'center',
     fontSize: 30,
