@@ -45,10 +45,6 @@ export default class TimerScreen extends Component {
       this.setState({stopwatchStart: false, stopwatchReset: true});
     }
 
-    getFormattedTime(time) {
-        this.currentTime = time;
-    }
-
     render() {
         const {route, navigation} = this.props;
         const userTime = route.params.userTime;
@@ -58,34 +54,31 @@ export default class TimerScreen extends Component {
                 <View style={styles.titleBar}>
                     <Text style={styles.titleText}>Timer Running</Text>
                 </View>
+                <View style={styles.bottomOval}/>
 
-                <View >
-                  <Timer totalDuration={(this.state.totalDuration * userTime)} secs start={this.state.timerStart}
-                    reset={this.state.timerReset}
-                    options={options}
-                    handleFinish={this.handleTimerComplete}
-                    getTime={this.getFormattedTime} />
-
-                  <TouchableOpacity onPress={this.toggleTimer}>
-                    <Text style={{fontSize: 30}}>{!this.state.timerStart ? "Start" : "Stop"}</Text>
+                  <TouchableOpacity style={styles.startStopButton} onPress={this.toggleTimer}>
+                      <Timer totalDuration={(this.state.totalDuration * userTime)} secs start={this.state.timerStart}
+                             reset={this.state.timerReset}
+                             options={options}
+                             handleFinish={this.handleTimerComplete}
+                             getTime={this.getFormattedTime} />
+                    <Text style={styles.startStopButtonText}>{!this.state.timerStart ? "Press to Start" : "Press to Pause"}</Text>
                   </TouchableOpacity>
 
+                <View style={styles.buttonContainer}>
                   {/*START TO BE REMOVED*/}
-                  <TouchableOpacity onPress={this.resetTimer}>
-                    <Text style={{fontSize: 30}}>Reset</Text>
+                  <TouchableOpacity style={styles.Button} onPress={this.resetTimer}>
+                    <Text style={styles.buttonText}>Reset</Text>
                   </TouchableOpacity>
-
-                </View>
-
 
                 <TouchableOpacity
-                    style={styles.getStartedButton}
+                    style={styles.Button}
                     onPress={() => navigation.navigate('OverviewScreen')}
                     underlayColor='fff'>
-                    <Text style={styles.getStartedButtonText}>Home</Text>
+                    <Text style={styles.buttonText}>Home</Text>
                 </TouchableOpacity>
+                </View>
               {/*END TO BE REMOVED*/}
-
             </View>
         );
     }
@@ -106,78 +99,110 @@ export default class TimerScreen extends Component {
 
 const options = {
   container: {
-    backgroundColor: '#000',
-    padding: 5,
-    borderRadius: 5,
-    width: 200,
+    backgroundColor: '#E0F5F6',
+    width: Math.round(Dimensions.get('window').height)/10 * 2,
+      position: 'absolute',
+      top: '40%',
+      right: '10%',
   },
   text: {
-    fontSize: 30,
-    color: '#FFF',
-    marginLeft: 7,
+    fontSize: 40,
+    color: '#47C494',
+    textAlign: 'center',
   }
 };
 
 
 const styles = StyleSheet.create({
-  Container: {
-    flex: 1,
-    justifyContent: 'center',
-    height: Math.round(Dimensions.get('window').height),
-    width: Math.round(Dimensions.get('window').width),
-    backgroundColor: '#E0F5F6',
-    alignContent: 'center',
-  },
-  titleBarContainer: {
-    flex: .2,
-  },
-  titleBar: {
-    height: Math.round(Dimensions.get('window').height)/10,
-    backgroundColor: '#EFEFEF',
-    shadowOpacity: 0.8,
-    shadowOffset: {width: 1, height: 4}
-  },
-  titleText: {
-    color: '#000000',
-    position: 'absolute',
-    top: '15%',
-    width: '100%',
-    textAlign: 'center',
-    fontSize: 30,
-    fontFamily: 'rock-salt',
-  },
-  buttonContainer: {
-    flex: .25,
-    flexDirection: 'row',
-    height: 95,
-    marginTop: -100,
-  },
-  Button: {
-    justifyContent: 'center',
-    alignContent: 'center',
-    marginLeft: 32.5,
-    marginTop: 30,
-    height: 95,
-    width: 95,
-    backgroundColor:'#47C494',
-    borderRadius:10,
-    borderWidth: 1,
-    borderColor: '#fff',
-    shadowOpacity: 0.8,
-    shadowOffset: {width: 1, height: 13}
-  },
-  timerIcon: {
-    height: 52.5,
-    width: 52.5,
-    marginLeft: 20,
-    marginTop: 5,
-  },
-  timerButtonText: {
-    color:'#E0F5F6',
-    textAlign:'center',
-    fontSize: 15,
-    paddingTop: 5,
-  },
+    Container: {
+      flex: 1,
+      height: Math.round(Dimensions.get('window').height),
+      width: Math.round(Dimensions.get('window').width),
+      backgroundColor: '#E0F5F6',
+      alignContent: 'center',
+    },
+    titleBarContainer: {
+      flex: .2,
+      justifyContent: 'center',
+      alignContent: 'center',
+    },
+    titleBar: {
+        height: Math.round(Dimensions.get('window').height),
+        marginTop: -Math.round(Dimensions.get('window').height) / 2 + 40 ,
+        backgroundColor: '#47C494',
+        width: Math.round(Dimensions.get('window').width),
+        borderRadius: Math.round(Dimensions.get('window').width) * 2,
+        shadowOpacity: 0.8,
+        shadowOffset: {width: 1, height: 4}
+    },
+    titleText: {
+      color: '#E0F5F6',
+      position: 'absolute',
+      top: '50%',
+      width: '100%',
+      textAlign: 'center',
+      fontSize: 50,
+      fontFamily: 'rock-salt',
+    },
+    buttonContainer: {
+        flex: .4,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginLeft: -15,
+        position: 'absolute',
+        top: '70%',
+        left: '5%',
+    },
+    startStopButton: {
+        flex: .31,
+        justifyContent: 'center',
+        alignContent: 'center',
+        marginLeft: (Math.round(Dimensions.get('window').width/2)) - ((Math.round(Dimensions.get('window').height)/10 * 2.5)/2),
+        position: 'absolute',
+        top: '40%',
+        height: Math.round(Dimensions.get('window').height)/10 * 2.5,
+        width: Math.round(Dimensions.get('window').height)/10 * 2.5,
+        backgroundColor:'#E0F5F6',
+        borderRadius:Math.round(Dimensions.get('window').height)/10 * 2.5 * 2,
+        borderWidth: 1,
+        borderColor: '#000',
+        shadowOpacity: 0.8,
+        shadowOffset: {width: 1, height: 13}
+    },
+    startStopButtonText: {
+        textAlign: 'center',
+        marginTop: 60,
+        fontSize: 20,
+        color: '#47C494',
+    },
+    Button: {
+        justifyContent: 'center',
+        alignContent: 'center',
+        marginLeft: (Math.round(Dimensions.get('window').width/4)) - ((Math.round(Dimensions.get('window').height)/10 * 2)/2),
+        marginTop: 30,
+        height: Math.round(Dimensions.get('window').height)/10,
+        width: Math.round(Dimensions.get('window').height)/10 * 2,
+        backgroundColor:'#E0F5F6',
+        borderRadius:10,
+        borderWidth: 1,
+        borderColor: '#000',
+        shadowOpacity: 0.8,
+        shadowOffset: {width: 1, height: 13}
+    },
+    buttonText: {
+        textAlign: 'center',
+        fontSize: 40,
+        color: '#47C494',
+    },
+    bottomOval: {
+        height: Math.round(Dimensions.get('window').height),
+        marginTop: -40,
+        backgroundColor: '#47C494',
+        width: Math.round(Dimensions.get('window').width),
+        borderRadius: Math.round(Dimensions.get('window').width) * 2,
+        shadowOpacity: 0.8,
+        shadowOffset: {width: 1, height: 4}
+    },
 });
 
 
