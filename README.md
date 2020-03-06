@@ -9,6 +9,6 @@
 
 👤 ** Corben Roszak, Tyler Barger, Garrett Claeys, Kyle Leibowitz**
 
-* Github: [@roszakc](https://github.com/roszakc)
+* Github: [@roszakc](https://github.com/roszakc), [@bargerT](https://github.com/BargerT), [grclaeys](https://github.com/grclaeys), [Leibowk](https://github.com/Leibowk)
 
 ***
