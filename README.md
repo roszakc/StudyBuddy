@@ -6,7 +6,7 @@
 > This mobile application is aimed to help incoming and returning students keep track of their hours studied and events using their phones calendar application.
 
 
->The app is made for Android and iOS, but preforms better on iOS. It has been tested using Expo.
+>The app is compatible with Android and iOS, but preforms better on iOS. It has been tested using Expo on iOS and Android. Created using the JetBrains WebStorm IDE.
 
 ## Author
 
